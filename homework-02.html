@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.box{
+				width: 100px;
+				height: 100px;
+				border: 1px solid greenyellow;
+				border-radius: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="xx">
+			<horse></horse>
+		</div>
+	</body>
+	<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script >
+		Vue.component("horse",{
+			template:`
+				<div>
+					<button @click="num++">{{num}}</button>
+					<div v-blind:left="num" class="box">hello,horse</div>					
+				</div>
+				`,
+			data(){
+				return{
+					num:0
+				}
+			}				
+		})
+		new Vue({
+			el:".xx"
+		})
+	</script>
+</html>
