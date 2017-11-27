@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/element-ui.css"/>
+		<style type="text/css">
+			  .el-row {
+			    margin-bottom: 20px;
+			    &:last-child {
+			      margin-bottom: 0;
+			    }
+			  }
+			  .el-col {
+			    border-radius: 4px;
+			  }
+			  .bg-purple-dark {
+			    background: #99a9bf;
+			  }
+			  .bg-purple {
+			    background: #d3dce6;
+			  }
+			  .bg-purple-light {
+			    background: #e5e9f2;
+			  }
+			  .grid-content {
+			    border-radius: 4px;
+			    min-height: 36px;
+			  }
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<el-row>
+  			  <el-col :span="24">
+  			  	<div class="grid-content bg-purple-dark" style="margin: 20px 0">
+					  <el-button plain>首页</el-button>
+					  <el-button type="primary" plain>娱乐</el-button>
+					  <el-button type="success" plain>体育</el-button>
+					  <el-button type="info" plain>综艺</el-button>
+					  <el-button type="warning" plain>音乐</el-button>
+					  <el-button type="danger" plain>危险按钮</el-button>					 
+  			 	</div>
+  			  </el-col>
+			</el-row>
+			<div>
+			  <el-input placeholder="老司机请给个种子" v-model="wangzhi">
+			    <template slot="prepend">Http:// </template>	
+			  </el-input>
+			  <el-button type="primary" icon="el-icon-search">搜索</el-button>
+			</div>
+			<template>
+			  <el-radio v-model="radio" label="1">备选项</el-radio>
+			  <el-radio v-model="radio" label="2">备选项</el-radio>
+			</template>
+			<el-checkbox-group v-model="checkboxGroup1">
+      		  <el-checkbox-button style="text-color:#666" v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox-button>
+    		</el-checkbox-group>
+  			
+  			<template>
+  				<el-input-number v-model="num1" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
+			</template>
+			
+			<template>
+			  <el-select v-model="value" placeholder="请选择">
+			    <el-option
+			      v-for="item in options"
+			      :key="item.value"
+			      :label="item.label"
+			      :value="item.value">
+			    </el-option>
+			  </el-select>
+			</template>
+			
+			<el-switch
+			  v-model="value2"
+			  active-color="#13ce66"
+			  inactive-color="#ff4949">
+			</el-switch>
+			
+			<template>
+			  <div class="block">
+			    <span class="demonstration">默认</span>
+			    <el-date-picker
+			      v-model="value1"
+			      type="datetime"
+			      placeholder="选择日期时间">
+			    </el-date-picker>
+			  </div>
+			</template>  
+			
+			<div class="block">
+			  <span class="demonstration">默认不区分颜色</span>
+			  <el-rate v-model="value3"></el-rate>
+			</div>
+			
+			<el-progress :percentage="70"></el-progress>
+	   </div>
+	</body>
+	<script src="js/vue.js"></script>
+	<script src="js/element-ui.js"></script>
+	<script >
+		const cityOptions = ['上海', '北京', '广州', '深圳'];
+		new Vue({
+			el:"#app",
+			data:{
+				wangzhi:"",
+				radio:"",
+				checkboxGroup1:['上海'],
+				cities:cityOptions,
+				num1: 1,
+				 options: [{
+			          value: '选项1',
+			          label: '黄金糕'
+			        }, {
+			          value: '选项2',
+			          label: '双皮奶'
+			        }, {
+			          value: '选项3',
+			          label: '蚵仔煎'
+			        }, {
+			          value: '选项4',
+			          label: '龙须面'
+			        }, {
+			          value: '选项5',
+			          label: '北京烤鸭'
+			        }],
+			        value: '',
+			        value1: true,
+        			value2: true,
+        			value3: null
+			},
+			
+		    methods: {
+		      handleChange(value) {
+		        console.log(value);
+		      },
+		    }
+		})		
+	</script>
+</html>
