@@ -1,0 +1,100 @@
+{
+	"self":{
+		"imgSrc":"images/jj.jpg",
+		"name":"Jacky",
+		"type":"H5开发工程师"
+	},
+	"about":{
+		"title":"自我简介",
+		"infos":[
+			"我非常喜欢研究H5各项开发技术;",
+			"工作认真踏实，能高效率完成公司安排的工作;",
+			"性格内敛、沉静，做事情稳妥，适应开发工程师的日常工作;",
+			"熟悉和了解HTML、CSS、JS等基础语言，了解jQuery、Vue等开发框架，熟悉ES6语法规范及前端模块化开发流程，了解移动端、PC端以及APP的开发流程和规范，希望自己能够逐渐成长为HTML5方向的技术高手。"
+		]
+	},
+	"contact":{
+		"title": "联系方式",
+		"infos":[
+			{"icon":"fa-phone","msg":"15625127052"},
+			{"icon":"fa-home","msg":"广东 广州"},
+			{"icon":"fa-envelope","msg":"765931328@qq.com"},
+			{"icon":"fa-globe","msg":"<a href='https://jacky10000.github.io'>https://jacky10000.github.io/</a>"}
+		]
+	},
+	"work":{
+		"title"  : "工作经验",
+		"infos":[
+			{"company":"广东智能科技有限公司","date":"2016.09-2017-03","job":"H5开发工程师"},
+			{"company":"广东大力互联网公司","date":"2017.03-2017-12","job":"全栈开发工程师"}
+		]
+	},
+	"education":{
+		"title"  : "教育经历",
+		"infos":[
+			{"school":"广东暨南大学","date":"2012.09-2016-07","major":"医学"},
+			{"school":"广东暨南大学","date":"2016.09-2017-07","major":"计算机科学"}
+		]		
+	},
+	"project":{
+		"title"  : "项目经历",
+		"infos":[
+			{   "name":"仿一条微信小程序开发",
+				"desc":"使用HTML、CSS、Javascript以及微信开发者工具实现微信小程序",
+			 	"contents":[
+					"1. 设计公司微信小程序，并编写公司微信小程序的布局；",
+					"2. 编写微信小程序的多个页面；",
+					"3. 编写小程序的数据接口；",
+					"4. 对编写的微信小程序进行发布和测试；",
+					"5. 根据测试结果，完成对应代码的调修复；",
+					"6. 和团队耐心沟通，紧密配合，保障项目完成。"
+				]			
+			},
+			{   "name":"上海火尤新能源官网",
+				"desc":"类似于博客一类的网站介绍，主要致力于宣传新能源，主要使用HTML、CSS、Javascript、jQuery以及一些其他的框架实现",
+			 	"contents":[
+					"1. 产品、项目、专题等所需页面的制作和前端效果的实现；",
+					"2. 整体页面结构及样式层结构的设计、优化；",
+					"3. 完成页面脚本程序编写、实现各类页面动态、交互效果；",
+					"4. 与产品、设计师、开发人员配合，根据需求调整、修改、优化页面；",
+					"5. 能够理解后端架构，与后端工程师配合，为项目提供最优化的技术解决方案；",
+					"6. 解决页面各浏览器下的兼容问题。"
+				]			
+			}
+		]
+	},		
+	"skill":{
+		"title"  : "开发技能",
+		"infos":[
+			{"name":"HTML5","ratio":80},
+			{"name":"CSS3","ratio":90},
+			{"name":"JavaScript","ratio":70},
+			{"name":"jQuery","ratio":80},
+			{"name":"BootStrap","ratio":70},
+			{"name":"Vue","ratio":60},
+			{"name":"NodeJs","ratio":75},
+			{"name":"Nginx","ratio":85},
+			{"name":"WeChat","ratio":95}
+		]			
+	},
+	"tool":{
+		"title"  : "开发工具",
+		"infos":[
+			{"name":"Sublime","ratio":90},
+			{"name":"Webstorm","ratio":85},
+			{"name":"Hbuilder","ratio":95},
+			{"name":"Photoshop","ratio":80}
+		]
+	},
+	"portfolio":{
+		"title"  : "我的作品",
+		"infos":[
+			{"name":"2048游戏","imgSrc":"./images/1.png","href":"http://www.baidu.com"},
+			{"name":"小米官网","imgSrc":"./images/2.png","href":"http://www.baidu.com"},
+			{"name":"建行手机官网","imgSrc":"./images/3.png","href":"http://www.baidu.com"},
+			{"name":"后台管理系统","imgSrc":"./images/4.png","href":"http://www.baidu.com"},
+			{"name":"jQuery轮播效果","imgSrc":"./images/5.png","href":"http://www.baidu.com"},
+			{"name":"canvas动态效果","imgSrc":"./images/6.png","href":"http://www.baidu.com"}
+		]		
+	}
+}

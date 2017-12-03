@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.css"/>
+	</head>
+	<body>
+		<div id="app">
+			<div class="r-left">
+				<div class="r-self">
+					<div>
+						<img :src="self.imgSrc"/>
+					</div>
+					<h4>{{self.name}}</h4>
+					<p>{{self.type}}</p>
+					<div style="margin: 10px -50px 0;text-align: center;">
+						<span style="color: yellow;" v-for="i in 5" class="fa fa-2x fa-star">&nbsp;</span>
+					</div>
+				</div>
+				<div class="r-self-bottom">
+				</div>
+				<div class="r-about">
+					<h4>{{about.title}}</h4>
+					<p v-for="info in about.infos">{{info}}</p>
+				</div>
+				<div class="r-contact">
+					<h4>{{contact.title}}</h4>
+					<div v-for="info in contact.infos">
+						<span>
+							<span class="fa" :class="info.icon"></span>
+						</span>
+						<span v-html="info.msg"></span>
+					</div>
+				</div>	
+				<div class="r-joke">
+					<h4>每日一笑</h4>
+					<p>{{joke}}</p>
+				</div>					
+				<div class="r-joke">
+					<h4>每日一笑</h4>
+					<p>{{joke}}</p>
+				</div>
+			</div>
+			
+			<div class="r-right">
+				<div class="r-right-first">
+					<div class="r-work">
+						<h3><span class="fa fa-briefcase r-right-title"></span><span>{{work.title}}</span></h3>
+						<ul>
+							<li v-for="info in work.infos">
+								<p>{{info.date}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{info.job}}</p>
+								<p>{{info.company}}</p>
+							</li>
+						</ul>
+					</div>
+					<div class="r-education">
+						<h3><span class="fa fa-graduation-cap r-right-title"></span><span>{{education.title}}</span></h3>
+						<ul>
+							<li v-for="info in education.infos">
+								<p>{{info.date}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{info.major}}</p>
+								<p>{{info.school}}</p>
+							</li>
+						</ul>						
+					</div>
+				</div>
+				
+				<div class="r-skill">
+					<h3><span @mouseenter="skillMove()" class="fa fa-keyboard-o r-right-title"></span><span>{{skill.title}}</span></h3>
+					<transition-group name="skill">
+						<div class="r-skill-box" v-for="(info,index) in skill.infos" :key="info.name">
+							<div>{{info.name}}</div>
+							<div>
+								<div class="r-skill-progress" :style="{width:(info.ratio/100)*100+'%'}"></div>
+							</div>
+						</div>
+					</transition-group>
+				</div>
+				
+				<div class="r-tool">
+					<h3><span @mouseenter="toolMove()" class="fa fa-cogs r-right-title"></span><span>{{tool.title}}</span></h3>
+					<transition-group class="r-tool-flex" tag="div" name="tool">
+						<div class="r-tool-box" v-for="(info,index) in tool.infos" :key="info.name">
+							<span>{{info.name}}</span>
+							<span>{{info.ratio}}%</span>
+							<svg width=138 height=138 fill="none">
+           						<circle :style="{strokeDashoffset:396*(100-info.ratio)/100}" cx="69" cy="69" r="64"></circle>
+          					</svg>
+						</div>
+					</transition-group>
+				</div>		
+				
+				<div class="r-portfolio">
+					<h3><span @mouseenter="portfolioMove()" class="fa fa-star r-right-title"></span><span>{{portfolio.title}}</span></h3>
+					<transition-group class="r-portfolio-flex" tag="div" name="portfolio">
+						<div class="r-portfolio-box" v-for="(info,index) in portfolio.infos" :key="info.name">
+							<a :href="info.href"><img :src="info.imgSrc"/></a>
+							<p>{{info.name}}</p>
+						</div>
+					</transition-group>
+				</div>	
+				
+				<div class="r-project">
+					<h3><span class="fa fa-film r-right-title"></span><span>{{project.title}}</span></h3>
+					<div class="r-project-box" v-for="(info,index) in project.infos" :key="info.name">
+						<p>项目名称：{{info.name}}</p>
+						<p>项目描述：{{info.desc}}</p>
+						<div>
+							<h3>项目职责：	</h3>
+							<p v-for="content in info.contents">{{content}}</p>							
+						</div>
+					</div>
+				</div>					
+			</div>
+		</div>
+	</body>
+	<script src="js/vue.js"></script>
+	<script src="js/lodash.min.js"></script>
+	<script type="text/javascript">
+//		var svg = document.querySelectorAll(".svg")[0];
+//		console.dir(svg.getTotalLength())
+		
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				self:{},
+				about:{},
+				contact:{},
+				work:{},
+				education:{},
+				tool:{},
+				portfolio:{},
+				project:{},
+				skill:{
+					title  : "开发技能",
+					infos:[
+						{name:"HTML5",ratio:0},
+						{name:"CSS3",ratio:0},
+						{name:"JavaScript",ratio:0},
+						{name:"jQuery",ratio:0},
+						{name:"BootStrap",ratio:0},
+						{name:"Vue",ratio:0},
+						{name:"NodeJs",ratio:0},
+						{name:"Nginx",ratio:0},
+						{name:"WeChat",ratio:0}
+					]	
+				},
+				joke:"没获取到笑话"
+			},
+			beforeMount(){
+				let xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = () => {
+					if(xhr.readyState == 4 && xhr.status == 200){
+						var obj = JSON.parse(xhr.response);
+						this.self = obj.self;
+						this.about = obj.about;
+						this.contact = obj.contact;
+						this.work = obj.work;
+						this.education = obj.education;
+						this.tool = obj.tool;
+						this.portfolio = obj.portfolio;
+						this.project = obj.project;
+						setTimeout(function () {
+							let left  = document.querySelector(".r-left");
+							let right = document.querySelector(".r-right");
+							left.style.height = getComputedStyle(right).height;
+						},100)	
+					}
+				}
+				xhr.open("GET","resume.json");
+				xhr.send();
+				
+				
+				let ajax = new XMLHttpRequest();
+				ajax.onreadystatechange = () => {
+					if(ajax.readyState == 4 && ajax.status == 200){
+						var obj = JSON.parse(ajax.response);
+						let num = ~~(Math.random()*20);
+						console.log(obj)
+						this.joke = obj.result.data[num].content;
+					}
+				}
+				ajax.open("GET","http://666ketang.com:1080/joke");
+				ajax.send();				
+			},
+			mounted(){
+			
+			},
+			methods:{
+				skillMove(){
+					this.skill.infos = _.shuffle(this.skill.infos)
+				},
+				toolMove(){
+					this.tool.infos = _.shuffle(this.tool.infos)
+				},		
+				portfolioMove(){
+					this.portfolio.infos = _.shuffle(this.portfolio.infos)
+				}
+			}
+		})
+		
+		window.onload = function () {
+			setTimeout(()=>{
+				let xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = () => {
+					if(xhr.readyState == 4 && xhr.status == 200){
+						var obj = JSON.parse(xhr.response);
+						vm.skill = obj.skill;
+					}
+				}
+				xhr.open("GET","resume.json");
+				xhr.send();				
+			},1000)
+			
+			window.onscroll = function () {
+				scrollTop = document.documentElement.scrollTop;
+				if(scrollTop > 100 && scrollTop < 150){
+					vm.skill.infos = _.shuffle(vm.skill.infos);
+				}
+				if(scrollTop > 230 && scrollTop < 280){
+					vm.tool.infos = _.shuffle(vm.tool.infos);
+				}				
+				if(scrollTop > 550 && scrollTop < 600){
+					vm.portfolio.infos = _.shuffle(vm.portfolio.infos);
+				}					
+			}
+		}
+	</script>
+</html>
