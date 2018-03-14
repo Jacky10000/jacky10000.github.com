@@ -1,0 +1,115 @@
+body{
+	margin: 0;
+	overflow-y: scroll;
+}
+
+ul{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+canvas{
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: -1;
+}
+
+
+.my-nav{
+	height: 60px;
+	background-color: #333;
+	opacity: 0.8;
+}
+.my-nav>ul{
+	margin: 0 auto;
+	height: 60px;
+	}
+.my-nav li{
+	height: 60px;
+	line-height: 60px;
+	float: left;
+	color: white;
+	margin: 0px 10px;
+	cursor: pointer;
+}
+.my-nav li:hover{
+	color: #f96;
+}
+
+footer{
+	height: 60px;
+	background-color: #C0C0C0;
+	line-height: 60px;
+	color: #333;
+	font-size: 0.8em;
+	text-align: center;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	opacity: 0.8;
+	width: 100%;
+}
+
+.grid{
+	margin-top: 20px;
+	margin-bottom: 60px;
+	padding: 0;
+}
+
+
+.box{
+	width: 50%;
+	padding: 10px;
+}
+.box div{
+	border-radius: 5px;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: all .6s;
+	position: relative;
+	cursor: pointer;
+}
+.box>a{
+	text-decoration: none;
+	color: white;
+}
+.box div>span{
+	transition: all .6s;
+}
+.box div:hover>span{
+	transform: scale(1.3);
+}
+.box div:hover{
+	box-shadow: 0px 0px 20px 0px white;
+	transform: translateY(-5px);
+}
+.box div>p{
+	margin: 0;
+	position: absolute;
+	font-size: 0.8em;
+	font-weight: 300px;
+	width: 100%;
+	height: 30%;
+	left: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0,0.5);
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;	
+}
+
+
+
+
+@media (min-width: 1200px){
+	.box{
+		padding: 10px;
+		width: 25%;
+	}	
+}
