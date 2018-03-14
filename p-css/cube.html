@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<style type="text/css">
+		html{
+			height: 100%;
+			background: radial-gradient(ellipse at center, #ccc 0%, #333 100%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		
+		.cube{
+			width: 200px;
+			height: 200px;
+			perspective: 100000px;
+			transform-style: preserve-3d;
+		}
+		.cube div{
+			position: absolute;
+			width: 200px;
+			height: 200px;
+			display: flex;
+			justify-content: center;
+			align-items: center;	
+			font-size: 48px;		
+			border: 1px solid gray;
+			color: white;
+		}
+		.cube img{
+			width: 100%;
+			height: 100%;
+		}
+		.front{
+			transform: translateZ(100px);
+			background-color: red;
+		}
+		.back{
+			transform: translateZ(-100px);
+			background-color: orange;
+		}		
+		.right{
+			transform: rotateY(90deg) translateZ(100px);
+			background-color: green;
+		}
+		.left{
+			transform: rotateY(-90deg) translateZ(100px);
+			background-color: blue;
+		}
+		.up{
+			transform: rotateX(90deg) translateZ(100px);
+			background-color: darkcyan;
+		}		
+		.down{
+			transform: rotateX(-90deg) translateZ(100px);
+			background-color: purple;
+		}			
+		
+		@keyframes rx{
+			from{}
+			to{transform: rotateX(360deg);}
+		}
+		
+		@keyframes ry{
+			from{}
+			to{transform: rotateY(360deg);}
+		}	
+			
+		@keyframes rz{
+			from{}
+			to{transform: rotateZ(360deg);}
+		}
+		
+		@keyframes rxyz{
+			from{}
+			to{transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);}
+		}	
+			
+		.button{
+			position: fixed;
+			left: 0px;
+			top: 0px;
+		}
+		
+	</style>
+</head>
+<body>
+	<div class="button">
+		<button id="startX">startX</button>
+		<button id="startY">startY</button>
+		<button id="startZ">startZ</button>
+		<button id="startXYZ">startXYZ</button>
+		<button id="stop">stop</button>
+	</div>
+	<div class="cube" id="cube">
+		<div class="front">
+			<img src="imgaes/1.png"/>
+		</div>
+		<div class="back">
+			<img src="imgaes/2.png"/>
+		</div>
+		<div class="left">
+			<img src="imgaes/3.png"/>
+		</div>
+		<div class="right">
+			<img src="imgaes/4.png"/>
+		</div>
+		<div class="up">
+			<img src="imgaes/5.png"/>
+		</div>
+		<div class="down">
+			<img src="imgaes/6.png"/>
+		</div>
+	</div>
+</body>
+	<script type="text/javascript">
+		var startX = document.getElementById("startX");
+		var startY = document.getElementById("startY");
+		var startZ = document.getElementById("startZ");
+		var startXYZ = document.getElementById("startXYZ");
+		var stop = document.getElementById("stop");
+		var cube = document.getElementById("cube");
+		
+		startX.onclick = function () {
+			cube.style.animation = "rx 10s infinite linear";
+		}
+		
+		startY.onclick = function () {
+			cube.style.animation = "ry 10s infinite linear";
+		}	
+		
+		startZ.onclick = function () {
+			cube.style.animation = "rz 10s infinite linear";
+		}	
+		
+		startXYZ.onclick = function () {
+			cube.style.animation = "rxyz 10s infinite linear";
+		}	
+		
+		stop.onclick = function () {
+			cube.style.animation = "";
+		}		
+	</script>
+
+</html>		
