@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0;
+			}
+			#waterfall{
+				width: 100%;
+				position: relative;
+			}
+			.box{
+				width: 150px;
+				padding: 20px;
+				border: 1px solid gray;
+				position: absolute;
+			}
+			.box>img{
+				width: 100%;
+			}			
+		</style>
+	</head>
+	<body>
+		<h3>支持浏览器缩放和下拉</h3>
+		<div id="waterfall">
+			<div class="box"><img src="img/01.jpg"/></div>
+			<div class="box"><img src="img/02.jpg"/></div>
+			<div class="box"><img src="img/03.jpg"/></div>
+			<div class="box"><img src="img/04.jpg"/></div>
+			<div class="box"><img src="img/05.jpg"/></div>
+			<div class="box"><img src="img/06.jpg"/></div>
+			<div class="box"><img src="img/07.jpg"/></div>
+			<div class="box"><img src="img/08.jpg"/></div>
+			<div class="box"><img src="img/09.jpg"/></div>
+			<div class="box"><img src="img/10.jpg"/></div>
+			<div class="box"><img src="img/11.jpg"/></div>
+			<div class="box"><img src="img/12.jpg"/></div>
+			<div class="box"><img src="img/13.jpg"/></div>
+			<div class="box"><img src="img/14.jpg"/></div>
+			<div class="box"><img src="img/01.jpg"/></div>
+			<div class="box"><img src="img/02.jpg"/></div>
+			<div class="box"><img src="img/03.jpg"/></div>
+			<div class="box"><img src="img/04.jpg"/></div>
+			<div class="box"><img src="img/05.jpg"/></div>
+			<div class="box"><img src="img/06.jpg"/></div>
+			<div class="box"><img src="img/07.jpg"/></div>
+			<div class="box"><img src="img/08.jpg"/></div>
+			<div class="box"><img src="img/09.jpg"/></div>
+			<div class="box"><img src="img/10.jpg"/></div>
+			<div class="box"><img src="img/11.jpg"/></div>
+			<div class="box"><img src="img/12.jpg"/></div>
+			<div class="box"><img src="img/13.jpg"/></div>
+			<div class="box"><img src="img/14.jpg"/></div>
+		</div>
+	</body>
+	<script src="js/jquery.min.js"></script>
+	<script type="text/javascript">
+		window.onload = function () {
+			
+			waterFall();
+			
+			function waterFall(){										//排版核心函数
+				var wa = [];													//空数组用于存放每列的高度
+				$windowH = $(window).width();					//得到文档宽度
+				$boxH = $(".box").outerWidth();				//图片框宽度+20，获得每个图片框的占位宽度
+				colNum = ~~($windowH/($boxH+25));					//计算每排放几张图片
+				dis = ($windowH-$boxH*colNum-(colNum-1)*20)/2;
+				for(var i=0;i<colNum;i++){						//给空数组存放元素，初始每列都为0
+					wa[i] = 0;
+				}
+				
+				$("#waterfall>div").each(function (index,ele) {			//排放每张图片
+					var $col =  minIndex(wa);
+					$(ele).css("left",$col*($boxH+20)+dis);							//计算每张图片的left坐标
+					$(ele).css("top",wa[$col]);								//计算每张图片的top坐标
+					wa[$col] = wa[$col] + $(ele).outerHeight() + 20;	//更新数组中对应列的高度
+				})			
+			}
+				
+			$(window).resize(function () {				//如果浏览器窗口大小改变，重新进行排版计算
+				waterFall();
+			})
+			
+			function minIndex(a){								//获取数组最小值的下标索引
+				var min=a[0];
+				for (var i=1;i<a.length;i++){
+					min = min<a[i]?min:a[i];
+				}
+				return a.indexOf(min);
+			}
+			
+			$(window).scroll(function () {
+				console.log($(window).height())				//浏览器窗口高度
+				console.log($(document).height())			//文档页面高度
+				console.log($(window).scrollTop())			//滚动条垂直滚动距离
+				//滚动条垂直最大滚动距离为(文档页面高度-浏览器窗口高度)，当滚动距离达到(最大距离-50)时，触发增加图片操作
+				if($(window).scrollTop() > ($(document).height()-$(window).height()-50)){
+					var boxString ="<div class='box'><img src='img/01.jpg'/></div>"+
+										"<div class='box'><img src='img/02.jpg'/></div>"+
+										"<div class='box'><img src='img/03.jpg'/></div>"+
+										"<div class='box'><img src='img/04.jpg'/></div>"+
+										"<div class='box'><img src='img/05.jpg'/></div>"+
+										"<div class='box'><img src='img/06.jpg'/></div>"+
+										"<div class='box'><img src='img/07.jpg'/></div>"+
+										"<div class='box'><img src='img/08.jpg'/></div>"+
+										"<div class='box'><img src='img/09.jpg'/></div>"+
+										"<div class='box'><img src='img/10.jpg'/></div>"+
+										"<div class='box'><img src='img/11.jpg'/></div>"+
+										"<div class='box'><img src='img/12.jpg'/></div>"+
+										"<div class='box'><img src='img/13.jpg'/></div>"+
+										"<div class='box'><img src='img/14.jpg'/></div>";
+					var $newBox = $(boxString);
+					$("#waterfall").append($newBox);
+					waterFall();				//增加了图片后，重新排版瀑布流
+				}
+			})
+		}
+	</script>
+</html>

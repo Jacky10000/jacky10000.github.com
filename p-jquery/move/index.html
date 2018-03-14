@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.container{
+				width: 966px;
+				height: 480px;
+				margin: 0px auto;
+				display: flex;
+				flex-flow: wrap;
+				align-items: center;
+				justify-content: space-around;
+			}
+			.box{
+				width: 220px;height: 120px;
+				position: relative;
+				overflow: hidden;
+			}
+			.show{
+				width: 220px;height: 120px;
+				background-color: lightgrey;
+				font-size: 24px;
+				color: white;
+				text-align: center;
+				line-height: 120px;
+			}
+			.move{
+				position: absolute;
+				left: -300px;top: 0px;				/*默认放到左侧*/
+				width: 220px;height: 120px;
+				background-color: rgba(30,30,200,0.5);
+				font-size: 24px;
+				color: white;
+				text-align: center;
+				line-height: 120px;				
+			}
+		</style>
+	</head>
+	<body>
+		<h3>动画会判断鼠标进入盒子的方向</h3>
+		<div class="container">
+			<div class="box">
+				<div class="show">我是盒子1</div>
+				<div class="move">111进来</div>
+			</div>
+			<div class="box">
+				<div class="show">我是盒子2</div>
+				<div class="move">222进来</div>
+			</div>
+			<div class="box">
+				<div class="show">我是盒子3</div>
+				<div class="move">333进来</div>
+			</div>
+			<div class="box">
+				<div class="show">我是盒子4</div>
+				<div class="move">444进来</div>
+			</div>	
+			<div class="box">
+				<div class="show">我是盒子5</div>
+				<div class="move">555进来</div>
+			</div>
+			<div class="box">
+				<div class="show">我是盒子6</div>
+				<div class="move">666进来</div>
+			</div>
+			<div class="box">
+				<div class="show">我是盒子7</div>
+				<div class="move">777进来</div>
+			</div>
+			<div class="box">
+				<div class="show">我是盒子8</div>
+				<div class="move">888进来</div>
+			</div>	
+		</div>
+	</body>
+	<script src="js/jquery.min.js"></script>
+	<script type="text/javascript">
+//		判断鼠标进入DIV的方向http://sentsin.com/web/112.html
+		$(".box").on("mouseenter mouseleave",function(e) {
+	      //以下5行代码主要是判断方向的，不要做任何的修改
+	      var w = $(this).width();
+	      var h = $(this).height();
+	      var x = (e.pageX - this.offsetLeft - (w / 2)) * (w > h ? (h / w) : 1);
+	      var y = (e.pageY - this.offsetTop - (h / 2)) * (h > w ? (w / h) : 1);
+	      var direction = Math.round((((Math.atan2(y, x) * (180 / Math.PI)) + 180) / 90) + 3) % 4; //direction的值为“0,1,2,3”分别对应着“上，右，下，左”
+	      //direction:0表示上侧，1表示右侧，2表示下侧，3表示左侧
+       	$(this).children(".move").stop();			//新动画发生前将之前的动画完成
+       	if(e.type == 'mouseenter'){						//判断鼠标进入事件
+       		if(direction==0){										//鼠标从上侧进入
+       			$(this).children(".move").css({
+       				left:0,top:-120
+       			}).animate({
+       				left:0,top:0
+       			},200)
+       		}else if(direction==1){				//鼠标从右侧进入
+       			$(this).children(".move").css({
+       				left:220,top:0
+       			}).animate({
+       				left:0,top:0
+       			},200)       			
+       		}else if(direction==2){				//鼠标从下侧进入
+       			$(this).children(".move").css({
+       				left:0,top:120
+       			}).animate({
+       				left:0,top:0
+       			},200)        			
+       		}else{												//鼠标从左侧进入
+       			$(this).children(".move").css({
+       				left:-220,top:0
+       			}).animate({
+       				left:0,top:0
+       			},200)        			
+       		}
+      	}else{													//判断鼠标移出事件
+       		if(direction==0){							//鼠标从上侧出去
+       			$(this).children(".move").animate({
+       				left:0,top:-120
+       			},200)
+       		}else if(direction==1){				//鼠标从右侧出去
+       			$(this).children(".move").animate({
+       				left:220,top:0
+       			},200)       			
+       		}else if(direction==2){				//鼠标从下侧出去
+       			$(this).children(".move").animate({
+       				left:0,top:120
+       			},200)        			
+       		}else{												//鼠标从左侧出去
+       			$(this).children(".move")	.animate({
+       				left:-220,top:0
+       			},200)        			
+       		}
+      	}
+    });		
+	</script>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/patternLock.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<style type="text/css">
+		html,body{
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		.lock{
+			height: 100%;
+			background-image: url(images/bg1.png);
+			background-size: 100% 100%;
+			position: relative;
+		}
+		#lock{
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			bottom: 10px;
+			background: none;	
+		}
+		#lock ul{
+			margin-top: 0;
+		}
+		.time{
+			color: white;
+			font-size: 4rem;
+			text-align: center;
+			padding-top: 50px;
+			font-weight: 200;
+			font-family: monospace;
+		}
+		.date{
+			color: white;
+			text-align: center;
+			font-size: 0.8rem;			
+		}
+
+		.desktop{
+			position: relative;
+			height: 100%;
+			background-image: url(images/bg2.png);
+			background-size: 100% 100%;			
+		}
+		.box{
+			padding-top: 40px;
+			display: flex;
+			flex-flow: row wrap;
+		}
+		.box>div,.footer>div{
+			width: 20%;
+			display: flex;
+			justify-content: center;
+			flex-flow: row wrap;
+			align-items: center;
+		}
+		.box>div>p,.footer>div>p{
+			margin: 0 auto 20px;
+			color: white;
+		}
+		.box>div>span,.footer>div>span{
+			box-sizing: border-box;
+			display: block;
+			width: 80%;
+			border-radius: 10px;
+			text-align: center;
+			color: white;
+		}
+
+		.footer{
+			position: absolute;
+			bottom:0;
+			width: 100%;
+			display: flex;
+			flex-flow: row wrap;
+		}
+		.footer>div{
+			width: 20%;
+		}
+	</style>
+</head>
+<body>
+	<div class="lock">
+		<div class="time"></div>
+		<div class="date"></div>
+		<div id="lock"></div>
+	</div>
+
+	<div class="desktop">
+		<div class="box">
+		</div>
+		<div class="footer">
+		</div>
+	</div>
+</body>
+<script src="js/zepto.min.js"></script>
+<script src="js/patternLock.zepto.js"></script>
+<script src="js/md5.min.js"></script>
+<script src="js/moment.min.js"></script>
+<script src="js/zh-cn.min.js"></script>
+<script>
+	var lock = new PatternLock("#lock",{
+		onDraw:function(pattern){
+			if(md5(pattern) == "ff111e4a5406ed4024a901c57e811167"){
+				lock.reset();					//重置图案
+				$(".lock").hide();
+			}else{
+				$(".patt-lines").css({
+					backgroundColor:"#123",
+					opacity:0.5
+				})
+				setTimeout(function () {
+					lock.reset();
+				},1200)
+			}
+	    }
+	});
+	setInterval(function(){
+		$(".time").html(moment().format('HH:mm:ss'))
+		$(".date").html(moment().format('MMM Do') +"    "+ moment().format('dddd') )
+	},1000)
+
+	$(function(){
+		let boxIcons = [
+			["fa-clock-o","时钟","#096"],
+			["fa-calendar-check-o","日历","#069"],
+			["fa-cube","魔方","#39c"],
+			["fa-diamond","钻石","#9ff"],
+			["fa-coffee","咖啡","#c69"],
+			["fa-eye","眼睛","#f39"],
+			["fa-feed","无线","#fc6"],
+			["fa-flag","旗帜","#f93"],
+			["fa-gear","设置","#f0f"],
+			["fa-lock","锁屏","#f39"]
+		]
+
+		let footerIcons = [
+			["fa-wechat","微信","#cff"],
+			["fa-weibo","微博","#cf3"],
+			["fa-qq","QQ","#c66"],
+			["fa-renren","人人","#9c9"],
+			["fa-firefox","火狐","#3cf"]
+		]
+
+		boxIcons.forEach(function(ele,index){
+			var divString = '<div>'+
+				'<span class="fa '+ele[0]+'"></span><p>'+ele[1]+'</p>'+
+				'</div>'
+			var $div = $(divString)
+			$div.children('span').css("backgroundColor",ele[2])
+			$(".box").append($div)
+		})
+
+		footerIcons.forEach(function(ele,index){
+			var divString = '<div>'+
+				'<span class="fa '+ele[0]+'"></span><p>'+ele[1]+'</p>'+
+				'</div>'
+			var $div = $(divString)
+			$div.children('span').css("backgroundColor",ele[2])
+			$(".footer").append($div)
+		})
+
+		$(".box>div").height($(".box>div").width()*1.5)
+		$(".box>div>span").height($(".box>div>span").width())
+		$(".footer>div>span").height($(".footer>div>span").width())
+		$(".footer>div").height($(".footer>div").width()*1.5)
+
+		$(".box>div>span").css({
+			fontSize:$(".box>div>span").width()*0.6+"px",
+			lineHeight:$(".box>div>span").width()+"px"
+		})
+		$(".footer>div>span").css({
+			fontSize:$(".box>div>span").width()*0.6+"px",
+			lineHeight:$(".box>div>span").width()+"px"
+		})
+
+		$(".fa-lock").on("click",function(){
+			$(".lock").show();
+		})
+	})
+</script>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<style type="text/css">
+		body{
+			margin: 0;
+			padding: 0;
+		}
+		.container{
+			height: 200px;
+			overflow: hidden;
+			position: relative;
+		}
+		.box{
+			position: absolute;
+			left: -100%;
+			top: 0;
+			width: 600%;
+			height: 200px;
+		}
+		.box>div{
+			width: 16.66666667%;
+			height: 200px;
+			float: left;
+			font-size: 48px;
+			text-align: center;
+			color: white;
+			line-height: 200px;
+		}
+	
+		.a{ background: linear-gradient(to right, #ff6a00, #ee0979);}
+		.b{ background: linear-gradient(to right, #43e97b, #38f9d7);}
+		.c{ background: linear-gradient(to right, #B2FEFA, #0ED2F7);}
+		.d{ background: linear-gradient(to right, #667eea, #764ba2);}
+		.nav{
+			position: absolute;
+			bottom: 15px;
+			left: 50%;
+			transform: translate(-50%);
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			width: 30%;
+			height: 20px;
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: space-between;
+		}
+		.nav>li{
+			width: 20px;
+			height: 20px;
+			background-color: white;
+			border-radius: 50%;
+		}
+		.nav>li.active{
+			background-color: #096;
+		}
+	</style>
+</head>
+<body>
+	
+	<div class="container">
+		<div class="box">
+			<div class="d">4</div>
+			<div class="a">1</div>
+			<div class="b">2</div>
+			<div class="c">3</div>
+			<div class="d">4</div>
+			<div class="a">1</div>
+		</div>
+		<ul class="nav">
+			<li class="active"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+
+
+
+</body>
+<script src="js/zepto.min.js"></script>
+<script src="js/fx.js"></script>
+<script src="js/fx_methods.js"></script>
+<script src="js/selector.js"></script>
+<script src="js/touch.js"></script>
+<script>
+	var W = $(".container").width();		//先要获取container容器的宽度
+	var canMove = true;						//控制是否允许移动
+	var time;								//全局计时器变量
+
+	$(".box").on("swipeLeft",function(){
+		sLeft();
+	})
+
+	function sLeft(){
+		if(canMove){
+			clearInterval(time);
+			canMove = false;
+			var boxLeft = $(".box").position().left;	//获取box移动前的left
+			$(".box").animate({
+				left: boxLeft-W
+			},400, function() {				//动画完成后的回调
+				//如果swipeLeft到最后的位置A，切换为第一个A
+				if($(".box").position().left == -5*W){
+					$(".box").css({left:-W})
+				}
+				navActive();
+			});
+			time = setInterval(sLeft,3000)
+		}
+	}
+
+	time = setInterval(sLeft,3000)
+
+	$(".box").on("swipeRight",function(){
+		if(canMove){
+			clearInterval(time);
+			canMove = false;
+			var boxLeft = $(".box").position().left;	//获取box移动前的left
+			$(".box").animate({
+				left: boxLeft+W
+			},400, function() {
+				//如果swipeRight到最前的位置D，切换为后面的D
+				if($(".box").position().left == 0){
+					$(".box").css({left:-4*W})
+				}
+				navActive();
+			});
+			time = setInterval(sLeft,3000)
+		}
+	})
+
+	//如果图片移动过程中，有新的手势事件，会干扰最终的效果
+	//使用一个全局的变量来控制是否允许移动
+
+	//在box的transitionend的事件中开启canMove
+	$(".box").on("transitionend",function(){
+		canMove = true;
+	})
+
+	function navActive(){
+		//获取对应的ABCD四张图片对应的下标0 1 2 3
+		var index = ($(".box").position().left/-W)-1;
+		$(".nav li").eq(index).addClass('active')
+		.siblings().removeClass('active');
+	}
+
+</script>
+</html>
