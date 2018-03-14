@@ -1,0 +1,139 @@
+body{
+    background-color: #E6E6E6;
+}
+/*头部logo*/
+header{
+    background-color: white;
+    margin-bottom:10px;
+}
+header>div:last-child{
+    height: 34px;
+    position: relative;
+    top:8px;
+}
+header>div>img{
+    width: 100%;
+    height: auto;
+}
+header>div>.my-map{
+    background-color: #0090E9;
+    color: white;
+    padding: 10px 20px;
+    height: 100%;
+}
+header>div>.my-map>i{
+    margin-right: 5px;
+}
+header>div>b{
+    border-top: 10px solid #0090E9;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    position: absolute;
+    top:25px;
+    left: 32px;
+}
+
+/*内容部分*/
+.my-content{
+    background-color: white;
+    padding: 10px 10px 5px;
+    margin-top:10px;
+
+}
+.my-content:after{
+    content: "";
+    clear: both;
+    display: block;
+}
+
+.my-content-left{
+    width: 70%;
+}
+.my-content-left>h4{
+    font-weight: 900;
+    text-indent: 15px;
+    margin: 0px;
+    cursor: pointer;
+
+}
+.my-content-left>p{
+    font-size: 12px;
+    line-height: 20px;
+    height: 40px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin: 5px 0;
+}
+.my-content-left>span{
+    color: #0090E9;
+    border: 1px solid #0090E9;
+}
+.my-content-right{
+    width: 30%;
+}
+.my-content-right>img{
+    width: 100px;
+    display: block;
+    float: right;
+    cursor: pointer;
+}
+
+/*弹出框*/
+.bigbox{
+    width: 100%;
+    position: absolute;
+    background-color: rgba(111,113,116,0.6);
+    left: 0;
+    top: 0;
+    display: none;
+}
+#hint {
+    margin: 0 auto;
+    width: 80%;
+    background-color: white;
+    /*margin-top: 15%;*/
+    position: fixed;
+    left: 10%;
+    top: 15px;
+    padding: 10px
+}
+#hint>span{
+    display: block;
+    border-radius: 50%;
+    font-size: 26px;
+    text-align: center;
+    line-height:30px;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: -15px;
+    top: -15px;
+    background-color: white;
+}
+#hintLoge>img{
+    width: 100%;
+}
+#hintContent>h3{
+    font-weight: 900;
+    text-indent: 20px;
+}
+#hintContent>span{
+    color: #0090E9;
+    border: 1px solid #0090E9;
+    margin-bottom:5px;
+}
+#hintContent>i{
+    display: block;
+    border: 1px dashed #0090E9;
+}
+#hintContent>div{
+    max-height: 240px;
+    overflow: scroll;
+}
+#hintContent>div>h5{
+    font-size: 18px;
+    font-weight: 900;
+}

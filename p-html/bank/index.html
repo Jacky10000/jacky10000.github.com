@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/my-css.css">
+		<script src="js/jqurey.min.js"></script>
+	</head>
+
+	<body>
+		<!--头部logo-->
+		<header>
+			<div>
+				<img src="images/banner.png" alt="">
+			</div>
+			<div>
+				<span class="my-map"><i class="fa fa-map-marker"></i>全国</span>
+				<b></b>
+			</div>
+		</header>
+
+		<!--内容-->
+		<div id="contentBox"></div>
+
+		<!--弹出框-->
+		<div class="bigbox">
+			<div id="hint">
+				<div id="hintLoge">
+					<img src="images/tan1.png" alt="">
+				</div>
+				<div id="hintContent">
+					<h3></h3>
+					<span class="btn btn-default"></span>
+					<i></i>
+					<div>
+						<h5></h5> 活动规则:
+						<p></p>
+					</div>
+				</div>
+				<span>&times;</span>
+			</div>
+		</div>
+
+	</body>
+	<script>
+		$(function() {
+			$.ajax({
+				type: "get",
+				url: "JSNN.json",
+				success: function(data) {
+					for(var i = 0; i < data.news.length; i++) {
+						$("#contentBox").append(
+							"<div class='my-content' >" +
+							"<div class='pull-left my-content-left'>" +
+							"<h4>" + data.news[i].title + "</h4>" +
+							"<p>" + data.news[i].zaiyao + "</p>" +
+							"<span class='btn btn-default'>" + data.news[i].time + "</span>" +
+							"</div>" +
+							"<div class='pull-right my-content-right'>" +
+							"<img src=" + data.news[i].imgurl + ">" +
+							"</div>" +
+							"</div>"
+						)
+					}
+
+					$(".my-content").click(function() {
+						var n = $(this).index();
+						console.log(n);
+						$("#hintLoge>img").attr("src", data.news[n].tanimgurl);
+						$("#hintContent>h3").text(data.news[n].title);
+						$("#hintContent>span").text(data.news[n].time);
+						$("#hintContent>div>h5").text(data.news[n].intro);
+						$("#hintContent>div>p").text(data.news[n].detail);
+
+						$(".bigbox").css({
+							"display": "block",
+							"height":document.body.clientHeight
+						})
+
+						$("#hint").css({
+                            "height": window.innerHeight-15
+						})
+					})
+
+					$("#hint>span").click(function() {
+						$(".bigbox").css({
+							"display": "none"
+						})
+					})
+				}
+			});
+		})
+	</script>
+
+</html>
