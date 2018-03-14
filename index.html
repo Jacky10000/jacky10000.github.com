@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>我的作品展示页面</title>
+		<link rel="stylesheet" href="css/bootstrap4.min.css" />
+		<link rel="stylesheet" href="css/font-awesome.css" />
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+	<body>
+		<div id="app">
+			<header class="my-nav">
+				<ul class="container">
+					<li @click="changeView(index)" v-for="(nav,index) in navs">{{nav}}</li>
+				</ul>
+			</header>
+			<div class="container grid" ref="box">
+				<div v-for="b in boxs" class="box" :class="b.type">
+					<a :href="b.link">
+						<div :style="{backgroundColor:b.bg}">
+							<span class="fa fa-3x" :class="b.icon"></span>
+							<p>{{b.desc}}</p>
+						</div>
+					</a>
+				</div>
+			</div>
+			<footer>
+				<span>作者：Jacky @ QQ:765931328</span>
+			</footer>
+		</div>
+		<canvas id="canvas"></canvas>
+	</body>
+	<script src="js/vue.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/isotope.pkgd.min.js"></script>
+	<script src="js/canvas.js"></script>
+	<script>
+		var vm = new Vue({
+			el:"#app",
+			created(){
+				
+			},
+			mounted(){
+				var boxs = this.$refs.box.children;
+				$(boxs).each(function (i,e) {
+					var W =$(this).width();
+					$(this).css("height",W*2/3+"px")
+				})				
+				$grid = $('.grid').isotope();
+				
+			},
+			data:{
+				navs:["All","Html","CSS","Game","jQuery","Vue"],
+				boxs:[
+					{type:"t1",link:"p-html/resume/index.html",icon:"fa-star",desc:"个人简历",bg:"#804"},
+					{type:"t2",link:"http://666xueyuan.com:1888",icon:"fa-weixin",desc:"在线聊天室",bg:"#096"},
+					{type:"t5",link:"p-vue/spa/index.html",icon:"fa-android",desc:"Vue单页应用",bg:"#2E68AA"},
+					{type:"t1",link:"p-html/xiaomi/index.html",icon:"fa-renren",desc:"小米首页",bg:"#FF6700"},
+					{type:"t3",link:"p-game/2048/index.html",icon:"fa-twitter",desc:"2048游戏",bg:"#39e"},
+					{type:"t4",link:"p-jquery/lock/index.html",icon:"fa-ra",desc:"手机锁屏",bg:"#39a"},
+					{type:"t3",link:"p-game/snake/index.html",icon:"fa-snapchat",desc:"贪吃蛇游戏",bg:"#960"},
+					{type:"t5",link:"p-vue/manage/index.html",icon:"fa-amazon",desc:"Vue后台管理",bg:"#C7CEB2"},
+					{type:"t1",link:"p-html/dianping/index.html",icon:"fa-qq",desc:"大众点评手机站",bg:"#0b6"},
+					{type:"t2",link:"p-css/digit-clock.html",icon:"fa-firefox",desc:"数字时钟",bg:"#669"},
+					{type:"t5",link:"p-vue/todo/index.html",icon:"fa-apple",desc:"Vue TODO",bg:"#807"},
+					{type:"t4",link:"p-jquery/waterfall/index.html",icon:"fa-safari",desc:"无限瀑布流",bg:"#E08031"},
+					{type:"t1",link:"p-html/bank/index.html",icon:"fa-weibo",desc:"建行手机站",bg:"#199475"},
+					{type:"t2",link:"p-game/typing/index.html",icon:"fa-chrome",desc:"打字游戏",bg:"#0B6E48"},
+					{type:"t3",link:"p-game/clock/index.html",icon:"fa-vine",desc:"Canvas时钟",bg:"#EFCEE8"},
+					{type:"t4",link:"p-jquery/verify/index.html",icon:"fa-linux",desc:"移动验证",bg:"#DAF9CA"},
+					{type:"t2",link:"p-jquery/lunbo/index.html",icon:"fa-edge",desc:"手机屏轮播",bg:"#00343F"},
+					{type:"t3",link:"p-jquery/move/index.html",icon:"fa-steam",desc:"方向动画",bg:"#1DB0B8"},
+					{type:"t4",link:"p-css/cube.html",icon:"fa-slack",desc:"旋转照片墙",bg:"#D0E9FF"},
+					{type:"t5",link:"p-vue/animation/index.html",icon:"fa-envira",desc:"Vue队列动画",bg:"#FEE388"}
+				]
+			},
+			methods:{
+				changeView(i){
+					$grid = $('.grid').isotope();
+					if(i == 0){
+						$grid.isotope({
+						  filter: '.box'
+						}); 	
+					}else{
+						$grid.isotope({
+						  filter: '.t'+i
+						}); 						
+					}
+				}
+			}
+			
+		})
+		
+		
+	</script>
+</html>
