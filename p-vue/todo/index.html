@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+		<style type="text/css">
+			.box{
+				width: 600px;
+				box-shadow: 0px 0px 10px 2px slategray;
+				margin: 20px auto 0px;
+				padding: 0px 20px 40px;
+				position: relative;
+			}			
+			ul,li{
+				list-style: none;
+				padding: 0;
+			}
+			.footer{
+				position: absolute;
+				width: 560px;
+				height: 34px;
+				bottom: 6px;
+				left: 20px;
+			}
+			.line{
+				text-decoration: line-through;
+			}
+			.orangered{
+				color: orangered;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="container">
+				<div class="box">
+					<h2 class="text-center panel-heading text-danger">My Todo Project</h2>
+					<input @keyup.enter="inputMsg()" class="form-control" type="text" v-model="msg" placeholder="请输入你要做的事情"/>
+					<div class="list-group">
+						<div v-show="item.show" class="list-group-item" v-for="(item,index) in msgArray">
+							<input style="display: none;" :id="index" @click="changeMsg(index)" type="checkbox" v-model="item.checked" />
+							<label :for="index">
+								<span class="glyphicon glyphicon-apple" :class="{orangered:item.checked}"></span> &nbsp;&nbsp;
+								<span :class="{line:item.checked}">第{{index+1}}事：{{item.msg}}</span>
+							</label>
+							<span @click="deleteMsg(index)" class="close">X</span>
+						</div>
+					</div>
+					<div class="footer btn-group">
+						<button @click="showAll()" class="btn btn-info">所有事件</button>
+						<button @click="showUn()" class="btn btn-danger">未完成事件</button>
+						<button @click="showCom()" class="btn btn-success">已完成事件({{num}})</button>
+						<button @click="deleteComplete()" class="btn btn-default pull-right">清除完成事件</button>
+					</div>
+				</div>			
+			</div>
+			{{msgArray}}
+		</div>
+	</body>
+	<script src="js/vue.min.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el:"#app",
+			data:{
+				msg:"",
+				msgArray:[],							//完整的数组
+				toggle:true,
+				complete:0,
+				opt:"All"
+			},
+			methods:{
+				inputMsg(){
+					if(this.msg){
+						//数组的元素为对象，有3个属性，msg是内容，checked是控制复选框，show控制如何显示
+						this.msgArray.push({msg:this.msg,checked:false,show:true})
+						this.msg = "";
+					}
+				},
+				deleteMsg(i){
+					this.msgArray.splice(i,1)
+				},
+				changeMsg(i){
+					this.msgArray[i].checked = !this.msgArray[i].checked;
+				},
+				deleteComplete(){
+					this.msgArray = this.msgArray.filter(function (ele) {
+						//只保留checked为false的选项，为true的元素要删除
+						return ele.checked == false;
+					})
+				},
+				showAll(){
+					this.msgArray.forEach(function (ele) {
+						ele.show = true;
+					})
+				},
+				showUn(){
+					this.msgArray.forEach(function (ele) {
+						ele.show = ele.checked ? false : true;
+					})
+				},
+				showCom(){
+					this.msgArray.forEach(function (ele) {
+						ele.show = ele.checked ? true : false;
+					})
+				}				
+			},
+			computed:{
+				num(){												//这是一个计算属性，可以直接使用
+					//返回数组中checked为true的元素的数量	
+					return this.msgArray.filter(function (v) {
+						return v.checked == true;
+					}).length
+				}
+			}
+		})
+	</script>
+</html>

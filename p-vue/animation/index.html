@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.box{
+				display: inline-block;
+				width: 200px;
+				height: 200px;
+				font-size: 36px;
+				color: white;
+				text-align: center;
+				line-height: 200px;
+				background-color: limegreen;
+				margin: 10px;
+			}
+			.slide-enter-active,.slide-leave-active{
+				transition: all .4s;
+			}
+			.slide-leave-active{
+				position: absolute;
+			}
+			.slide-enter,.slide-leave-to{
+				transform: scale(0) rotate(360deg);
+				opacity: 0;
+			}
+			.slide-move{
+				transition: all .4s;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<button @click="type = 'all'">TypeAll</button>
+			<button @click="type = 'a'">TypeA</button>
+			<button @click="type = 'b'">TypeB</button>
+			<button @click="type = 'c'">TypeC</button>
+			<button @click="deleteList()">Delete</button>
+			<button @click="addList()">Add</button>
+			<ul>
+				<transition-group name="slide" tag="section">
+					<div class="box" v-for="(list,index) in newLists" :key="list.hash">{{list.id}}--{{index}}</div>
+				</transition-group>
+			</ul>
+			
+		</div>
+	</body>
+	<script src="js/vue.min.js"></script>
+	<script>
+		
+		new Vue({
+			el:"#app",
+			data:{
+				count:10,
+				lists:[
+					{id:1,hash:Math.random().toString(),type:"a"},
+					{id:2,hash:Math.random().toString(),type:"b"},
+					{id:3,hash:Math.random().toString(),type:"c"},
+					{id:4,hash:Math.random().toString(),type:"a"},
+					{id:5,hash:Math.random().toString(),type:"b"},
+					{id:6,hash:Math.random().toString(),type:"c"},
+					{id:7,hash:Math.random().toString(),type:"a"},
+					{id:8,hash:Math.random().toString(),type:"b"},
+					{id:9,hash:Math.random().toString(),type:"c"},
+					{id:10,hash:Math.random().toString(),type:"a"}
+				],
+				type:"all"
+			},
+			methods:{
+				rIndex(){
+					return ~~(Math.random()*this.lists.length);
+				},
+				deleteList(){
+					this.lists.splice(this.rIndex(),1)
+				},
+				addList(){
+					this.lists.splice(this.rIndex(),0,{id:this.count++,hash:Math.random().toString()})
+				}
+			},
+			computed:{
+				newLists(){
+					return this.lists.filter((ele) => {
+						if(this.type == "all"){
+							return true;
+						}else{
+							return ele.type == this.type;
+						}
+					})
+				}
+			}
+		})
+	</script>
+</html>
