@@ -1,0 +1,99 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, p, a, blockquote, th {
+    margin: 0;
+    padding: 0;
+    font-size: 0.25rem;
+    /* font-family: "Microsoft Yahe"; */
+    font-family: 'Helvetica','Arial','黑体','微软雅黑';
+    color: #4f4f4f;
+}
+
+body,html{
+    position: relative;
+     min-width: 320px;
+   /* max-width: 640px;*/
+    margin:0 auto;
+}
+ol, ul, li {
+    list-style: none outside none;
+}
+table {
+    border-collapse: collapsse;
+    border-spacing: 0;
+}
+fieldset, img {
+    border: 0 none;
+    vertical-align:top;/*处理IE6*/
+}
+img{
+    width: 100%;
+    height: auto;
+}
+body {
+	max-width:768px;
+	margin:0 auto;
+    color: #333;
+    text-align: left;
+    background: #f0f0f0;
+}
+input::-moz-focus-inner {
+ border: none;
+ padding: 0;
+ outline:none;
+}
+ input{-webkit-appearance: none;outline:none;border: none;
+ padding: 0;}
+a {
+    /*display: block;*/
+    outline: none;
+    color: #333;
+    text-decoration: none;
+}
+a img {
+    border: none;
+    vertical-align: top;
+}
+textarea {
+    resize: none;
+    outline: none;
+}
+input {
+    outline: none;
+    border: none;
+}
+/*  共用部分  */
+/* clear fix */
+.cf {
+    zoom: 1;
+}
+
+.cf:before,
+.cf:after {
+    content: "";
+    display: table;
+}
+
+.cf:after {
+    clear: both;
+}
+.fl{
+	float:left;
+}
+
+/* 去除手机点击a标签的时候出现灰色半透明 */
+a,button,input{
+    -webkit-tap-highlight-color:rgba(255,0,0,0);
+    -webkit-touch-callout:none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

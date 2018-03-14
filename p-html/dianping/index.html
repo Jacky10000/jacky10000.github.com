@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>仿点评</title>
+    <link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/swiper.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <script type="text/javascript">
+   		document.addEventListener('plusready', function(){
+   			//console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。"
+   		});
+    </script>
+    <script>
+		var speedTimer = [],
+		speedZero = (new Date).getTime(),
+		calculate_size = function() {
+		var e = 100,
+		t = document.documentElement,
+		n = t.clientWidth;
+		n = n > 750 ? 750: n, n && (t.style.fontSize = e * (n / 750) + "px")
+		};
+		if (document.addEventListener) {
+		var resizeEvt = "orientationchange" in window ? "orientationchange" : "resize";
+		window.addEventListener(resizeEvt, calculate_size, !1), document.addEventListener("DOMContentLoaded", calculate_size, !1), calculate_size()
+		}
+	</script>
+</head>
+<body>
+	<!-- header  B-->
+	<header class="cf">
+		<div class="city">上海<i></i></div>
+		<div class="search-group">
+			<label></label>
+			<input type="text" placeholder="输入商户名、地点" />
+		</div>
+		<a class="user" href="#"></a>
+	</header>
+	<!-- header  E-->
+	<!-- ad  B-->
+	<div class="ad">
+		<img src="img/ad-img.jpg" alt="" />
+	</div>
+	<!-- ad  E-->
+	<!-- nav  B-->
+	<nav class="swiper-container">
+		<div class="swiper-wrapper">
+			<ul class="swiper-slide">
+				<li>
+					<a href="#">
+						<img src="img/food-icon.png" alt="" />
+						<span>美食</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/dianying-icon.png" alt="" />
+						<span>电影</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/jiudian-icon.png" alt="" />
+						<span>酒店</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/xiuxianyle-icon.png" alt="" />
+						<span>休闲娱乐</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/waimai-icon.png" alt="" />
+						<span>外卖</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/huoguo-icon.png" alt="" />
+						<span>火锅</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/liren-icon.png" alt="" />
+						<span>丽人</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/zhoubianyou-icon.png" alt="" />
+						<span>周边游</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/ktv-icon.png" alt="" />
+						<span>KTV</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/shenghuofuwu-icon.png" alt="" />
+						<span>生活服务</span>
+					</a>
+				</li>
+			</ul>
+			<ul class="swiper-slide">
+				<li>
+					<a href="#">
+						<img src="img/jingguan-icon.png" alt="" />
+						<span>景点</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/aiche-icon.png" alt="" />
+						<span>爱车</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/jiehun-icon.png" alt="" />
+						<span>结婚</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/jianshen-icon.png" alt="" />
+						<span>运动健身</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/shopping-icon.png" alt="" />
+						<span>购物</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/qinzi-icon.png" alt="" />
+						<span>亲子</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/jiazhuang-icon.png" alt="" />
+						<span>家装</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/xxpx-icon.png" alt="" />
+						<span>学习培训</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/yiliao-icon.png" alt="" />
+						<span>医疗健康</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="img/daojia-icon.png" alt="" />
+						<span>到家</span>
+					</a>
+				</li>
+			</ul>
+			<ul class="swiper-slide">
+			<li>
+				<a href="#">
+					<img src="img/food-icon.png" alt="" />
+					<span>美食</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="img/dianying-icon.png" alt="" />
+					<span>电影</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="img/jiudian-icon.png" alt="" />
+					<span>酒店</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="img/xiuxianyle-icon.png" alt="" />
+					<span>休闲娱乐</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="img/waimai-icon.png" alt="" />
+					<span>外卖</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="img/huoguo-icon.png" alt="" />
+					<span>火锅</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="img/liren-icon.png" alt="" />
+					<span>丽人</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="img/zhoubianyou-icon.png" alt="" />
+					<span>周边游</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="img/ktv-icon.png" alt="" />
+					<span>KTV</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="img/shenghuofuwu-icon.png" alt="" />
+					<span>生活服务</span>
+				</a>
+			</li>
+		</ul>
+		</div>
+		<!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+	</nav>
+	<!-- nav  E-->
+	<!-- headlines  B-->
+	<div class="headlines cf">
+		<div class="headlines-logo"></div>
+		<div class="swiper-container">
+			<ul class="headlines-content swiper-wrapper cf">
+				<li class="swiper-slide">
+					<a href="#">
+						<div class="headlines-title">2017年上班第一天，要从吃这些开始！</div>
+						<div class="headlines-img">
+							<img src="img/headlines-img.png"/>
+							<span class="imgNum">39</span>
+						</div>
+					</a>
+				</li>
+				<li class="swiper-slide">
+					<a href="#">
+						<div class="headlines-title">定了！2017魔都最值得吃的餐厅全部集齐！</div>
+						<div class="headlines-img">
+							<img src="img/headlines-img.png" />
+							<span class="imgNum">21</span>
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- headlines  E-->
+	<!-- hotspot  B-->
+	<ul class="hotspot cf">
+		<li>
+			<a href="#">
+				<div>
+					<h5 class="cblue">星爷续经典</h5>
+					<small>超值看西游</small>
+					<img src="img/hotspot-img1.png" alt="" />
+				</div>
+			</a>
+		</li>
+		<li>
+			<a href="#">
+				<div>
+					<h5>领60</h5>
+					<small>享好店不打烊</small>
+					<img src="img/hotspot-img2.png" alt="" />
+				</div>
+			</a>
+		</li>
+		<li>
+			<a href="#">
+				<div>
+					<h5>外卖招牌菜</h5>
+					<small>强力推荐</small>
+					<img src="img/hotspot-img3.png" alt="" />
+				</div>
+			</a>
+		</li>
+	</ul>
+	<!-- hotspot  E-->
+	<!-- xyad  B-->
+	<div class="xyad cf">
+		<div class="ad">
+			<a class="bgRed"  href="#">
+				<div class="fl">
+					<h4>88元桃花礼</h4>
+					<p>大幂幂送福利</p>
+				</div>
+				<img src="img/xyad-img1.png"/>
+			</a>
+		</div>
+		<div class="ad">
+			<a href="#">
+				<div class="fl">
+					<h4>新春换新颖</h4>
+					<p>0元领取好礼</p>
+				</div>				
+				<img src="img/xyad-img2.png"/>
+			</a>
+		</div>
+	</div>
+	<!-- xyad  E-->
+	<!-- czth  B-->
+	<div class="czth">
+		<div class="czth-header cf">
+			<h3></h3>
+			<div class="right-more">
+				<a href="#">更多优惠<i>></i></a>
+			</div>
+		</div>
+		<ul class="czth-main cf">
+			<li>
+				<a href="#">
+					<img src="img/4.jpg" />
+					<h4>57号胖子龙虾胖子龙虾胖子龙虾胖子龙虾胖子龙虾</h4>
+					<div class="price">
+						<span>￥</span><strong>1</strong>
+						<del>￥69</del>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="img/2.jpg" />
+					<h4>57号胖子龙虾</h4>
+					<div class="price">
+						<span>￥</span><strong>1</strong>
+						<del>￥298</del>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="img/3.jpg" />
+					<h4>57号胖子龙虾</h4>
+					<div class="price">
+						<span>￥</span><strong>1</strong>
+						<del>￥69</del>
+					</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<!-- czth  E-->
+	<!-- ttlj  B-->
+	<div class="czth">
+		<div class="czth-header ttlj-header cf">
+			<h3></h3>
+			<div class="right-more">
+				<a href="#">更多优惠<i>></i></a>
+			</div>
+		</div>
+		<ul class="czth-main cf">
+			<li>
+				<a href="#">
+					<img src="img/4.jpg" />
+					<h4>57号胖子龙虾胖子龙虾胖子龙虾胖子龙虾胖子龙虾</h4>
+					<div class="price">
+						<span>￥</span><strong>1</strong>
+						<del>￥69</del>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="img/2.jpg" />
+					<h4>57号胖子龙虾</h4>
+					<div class="price">
+						<span>￥</span><strong>1</strong>
+						<del>￥298</del>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="img/3.jpg" />
+					<h4>57号胖子龙虾</h4>
+					<div class="price">
+						<span>￥</span><strong>1</strong>
+						<del>￥69</del>
+					</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<!-- ttlj  E-->
+	<!-- cnxh  B-->
+	<div class="cnxh">
+		<h5>猜你喜欢</h5>
+		<ul class="cnxh-main">
+			<li>
+				<a href="#" class="cf">
+					<div class="shopping-img">
+						<img src="img/cnxh1.jpg" />
+						<span>免预约</span>
+					</div>
+					<div class="cnxh-content">
+						<h3>牛new寿喜烧牛new寿喜烧new寿喜烧</h3>
+						<p>[3店通用] 寿喜锅套餐，建议2人使用</p>
+						<div class="cnxh-price cf">
+							<div class="price-left">
+								<span>￥</span><strong>138</strong>
+								<del>340</del>
+							</div>
+							<div class="price-right">
+								<span>已售</span>
+								<span>5155</span>
+							</div>
+						</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="cf">
+					<div class="shopping-img">
+						<img src="img/cnxh2.jpg" />
+						<span>免预约</span>
+					</div>
+					<div class="cnxh-content">
+						<h3>牛new寿喜烧牛new寿喜烧new寿喜烧</h3>
+						<p>[3店通用] 寿喜锅套餐，建议2人使用</p>
+						<div class="cnxh-price cf">
+							<div class="price-left">
+								<span>￥</span><strong>138</strong>
+								<del>340</del>
+							</div>
+							<div class="price-right">
+								<span>已售</span>
+								<span>5155</span>
+							</div>
+						</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="cf">
+					<div class="shopping-img">
+						<img src="img/cnxh1.jpg" />
+						<span>免预约</span>
+					</div>
+					<div class="cnxh-content">
+						<h3>牛new寿喜烧牛new寿喜烧new寿喜烧</h3>
+						<p>[3店通用] 寿喜锅套餐，建议2人使用</p>
+						<div class="cnxh-price cf">
+							<div class="price-left">
+								<span>￥</span><strong>138</strong>
+								<del>340</del>
+							</div>
+							<div class="price-right">
+								<span>已售</span>
+								<span>5155</span>
+							</div>
+						</div>
+					</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<!-- cnxh  E-->
+	<!-- footer  B-->
+	<footer>
+		<div class="footer-content">
+			<div>
+				<ul class="cf">
+					<li><a href="#">我的</a></li>
+					<li><a href="#">社交论坛</a></li>
+					<li><a href="#">添加商户</a></li>
+					<li><a href="#">意见反馈</a></li>
+				</ul>
+			</div>
+			<div>
+				<ul class="cf">
+					<li><a href="#">美团网</a></li>
+					<li><a href="#">美团下载</a></li>
+					<li><a href="#">结婚</a></li>
+					<li><a href="#">亲子</a></li>
+					<li><a href="#">家装</a></li>
+					<li><a href="#">宴会</a></li>
+					<li><a href="#">教育</a></li>
+				</ul>
+			</div>
+			<div>
+				<ul class="cf">
+					<li><a href="#">电脑版</a></li>
+					<li><a href="#">客户端</a></li>
+				</ul>
+			</div>
+		</div>
+		<p class="copy">copyright2016 dianping.com</p>
+	</footer>
+	<!-- footer  E-->
+	
+	<!--<script type="text/javascript" src="js/jquery-1.10.1.min.js" ></script>-->
+	<script type="text/javascript" src="js/swiper.min.js" ></script>
+	<script type="text/javascript">
+		/* nav */
+		var swiper = new Swiper('nav.swiper-container', {
+	        pagination: 'nav.swiper-container .swiper-pagination',
+	        paginationClickable: true,
+	        autoplay: 3000
+	   });
+	   
+	</script>
+	<script>
+	  /* headlines */
+	  var swiper = new Swiper('.headlines > .swiper-container', {
+        direction: 'vertical',
+        mousewheelControl : false,
+        autoplay: 5000,
+        noSwipingClass : 'swiper-slide', //不可手动拖放
+    });
+	</script>
+</body>
+</html>
