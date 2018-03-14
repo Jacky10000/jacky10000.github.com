@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title></title>
+		<style type="text/css">
+			html,body,#app{
+				height: 100%;
+				margin: 0;
+			}
+			#app:focus{
+				outline: none;
+			}
+			#app>div{
+				width: 400px;
+				margin: 0px auto;
+				padding: 20px;
+			}
+			.game{
+				background-color: #BBADA0;
+				border-radius: 15px;
+				display: flex;
+				flex-flow: row wrap;
+				padding: 10px;
+				position: relative;
+			}
+			.box{
+				box-sizing: border-box;
+				width: 25%;
+				background-color: #CDC1B4;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 48px;
+				color: #666;
+				padding: 10px;
+				background-clip: content-box;
+			}
+			.game-over{
+				width: 80%;
+				height: 20%;
+				display: flex;
+				justify-content: center;
+				align-items: center;				
+				font-size: 54px;
+				color: lightcoral;
+				background-color: #ddd;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%,-50%);
+			}
+			.to-big{
+				animation: to-big .2s linear;
+			}
+			@keyframes to-big{
+				from{transform: scale(0);}
+				to{transform: scale(1);}
+			}
+			
+			@media (max-width: 768px) {
+				#app>div{
+					width: 95%;
+					padding: 10px;
+				}				
+				.box{
+					font-size: 28px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" ref="app" tabindex="1" @keyup.left.up.right.down="game($event)">
+			<v-touch tag="div" @swipe="phone($event)">
+				<h1>2048游戏</h1>
+				<button @click="reload()">重玩游戏</button>&nbsp;&nbsp;
+				<span>得分:{{score}}</span>
+				<hr />
+				<div class="game" ref="game">
+					<div class="box" v-for="item in gameArray[0]" ref="box">{{item}}</div>
+					<div class="box" v-for="item in gameArray[1]" ref="box">{{item}}</div>
+					<div class="box" v-for="item in gameArray[2]" ref="box">{{item}}</div>
+					<div class="box" v-for="item in gameArray[3]" ref="box">{{item}}</div>
+					<div v-show="gameOver" class="game-over">Game Over</div>
+				</v-touch>
+			</div>
+		</div>
+	</body>
+	<script src="js/vue.min.js"></script>
+	<script src="js/hammer.min.js"></script>
+	<script src="js/vue-touch.js"></script>
+	<script>
+		new Vue({
+			el:"#app",
+			mounted(){
+				//设定游戏大盒子的高度和宽度一致
+				let gameW = getComputedStyle(this.$refs.game).width;
+				this.$refs.game.style.height = gameW;
+				
+				//设定游戏小盒子的高度和宽度一致
+				let boxW = getComputedStyle(this.$refs.box[0]).width;
+				this.$refs.box.forEach(function (ele) {
+					ele.style.height = boxW;
+				})				
+				
+				//APP所在的DIV默认激活，可以使用键盘事件
+				this.$refs.app.focus();
+			},
+			updated(){
+				this.$refs.box.forEach(function (ele) {
+					if(ele.innerText == "")  ele.style.backgroundColor = "#CDC1B4";
+					if(ele.innerText == "2") ele.style.backgroundColor = "#eee4da";
+					if(ele.innerText == "4") ele.style.backgroundColor = "#ede0c8";
+					if(ele.innerText == "8") ele.style.backgroundColor = "#f2b179";
+					if(ele.innerText == "16") ele.style.backgroundColor = "#f59563";
+					if(ele.innerText == "32") ele.style.backgroundColor = "#f67c5f";
+					if(ele.innerText == "64") ele.style.backgroundColor = "#f65e3b";
+					if(ele.innerText == "128") ele.style.backgroundColor = "#edcf72";
+					if(ele.innerText == "256") ele.style.backgroundColor = "#edcc61";
+					if(ele.innerText == "512") ele.style.backgroundColor = "#edc850";
+					if(ele.innerText == "1024") ele.style.backgroundColor = "#edc53f";
+					if(ele.innerText == "2048") ele.style.backgroundColor = "#edc22e";
+					if(ele.innerText == "4096") ele.style.backgroundColor = "#e1121e";
+				})				
+			},
+			data:{
+				gameArray:[
+					[null,null,null,null],
+					[null,null,null,null],
+					[null,null,null,null],
+					[null,null,null,null]
+				],
+				gameOver:false
+			},
+			computed:{
+				score(){
+					let temp = 0;
+					this.gameArray.forEach(function (eleA) {
+						eleA.forEach(function (eleB) {
+							temp = eleB ? temp+eleB : temp;
+						})
+					})
+					return temp;
+				}
+			},
+			methods:{
+				phone(e){
+					//e.direction 2是left 4是right 8是up 16是down
+					console.log(e.direction)
+					if(this.notMove()&&this.boxFull()){
+								this.gameOver = true;
+					}
+					if(e.direction == 2){
+						this.move("left");
+						this.merge("left");
+						this.move("left");
+					}
+					if(e.direction == 8){
+						this.move("up");
+						this.merge("up");
+						this.move("up");
+					}					
+					if(e.direction == 4){
+						this.move("right");
+						this.merge("right");
+						this.move("right");
+					}
+					if(e.direction == 16){
+						this.move("down");
+						this.merge("down");
+						this.move("down");
+					}		
+					this.add();					
+				},
+				reload(){
+					this.gameArray = [
+						[null,null,null,null],
+						[null,null,null,null],
+						[null,null,null,null],
+						[null,null,null,null]
+					]
+				},
+				add(){
+					if(this.boxFull()) {
+//						alert("盒子满了");
+						return false;
+					};
+					let row = ~~(Math.random()*4)										//根据随机数获得行
+					let col = ~~(Math.random()*4)										//根据随机数获得列
+					if(this.gameArray[row][col]){
+						this.add();
+					}else{
+						this.gameArray[row].splice(col,1,2);
+						
+						//把所有的box的to-big的类去除
+						this.$refs.box.forEach(function (ele) {
+							ele.className = "box";
+						})
+						//给新数据的box增加一个动画类
+						this.$refs.box[row*4+col].className = "box to-big";
+					}
+				},
+				game(e){
+					if(this.notMove()&&this.boxFull()){
+						this.gameOver = true;
+					}
+					if(e.which == 37){
+						this.move("left");
+						this.merge("left");
+						this.move("left");
+					}
+					if(e.which == 38){
+						this.move("up");
+						this.merge("up");
+						this.move("up");
+					}					
+					if(e.which == 39){
+						this.move("right");
+						this.merge("right");
+						this.move("right");
+					}
+					if(e.which == 40){
+						this.move("down");
+						this.merge("down");
+						this.move("down");
+					}		
+					this.add();
+				},
+				move(way){
+					if(way == "left"){								//往左移动
+						for(let i=0;i<4;i++){
+							for(let j=1;j<4;j++){
+								//从第二列开始判断前面空位有几个
+								if(this.gameArray[i][j] == null) continue;
+								let blanks = 0;
+								for(let k=0;k<j;k++){
+									if(this.gameArray[i][k] == null) blanks++;
+								}
+								//如果blanks大于0，说明前面有空位，则对位置进行调整
+								if(blanks > 0){
+									this.gameArray[i].splice(j-blanks,1,this.gameArray[i][j]);
+									this.gameArray[i].splice(j,1,null);
+								}
+							}
+						}
+					}
+					if(way == "right"){								//往右移动
+						for(let i=0;i<4;i++){
+							for(let j=2;j>=0;j--){
+								//从第二列开始判断后面空位有几个
+								if(this.gameArray[i][j] == null) continue;
+								let blanks = 0;
+								for(let k=3;k>j;k--){
+									if(this.gameArray[i][k] == null) blanks++;
+								}
+								//如果blanks大于0，说明前面有空位，则对位置进行调整
+								if(blanks > 0){
+									this.gameArray[i].splice(j+blanks,1,this.gameArray[i][j]);
+									this.gameArray[i].splice(j,1,null);
+								}
+							}
+						}
+					}					
+					//上和下要做好行和列的转换
+					//i要作为列的坐标
+					//j和k要作为行的坐标
+					if(way == "up"){								//往上移动
+						for(let i=0;i<4;i++){
+							for(let j=1;j<4;j++){
+								//从第二列开始判断前面空位有几个
+								if(this.gameArray[j][i] == null) continue;
+								let blanks = 0;
+								for(let k=0;k<j;k++){
+									if(this.gameArray[k][i] == null) blanks++;
+								}
+								//如果blanks大于0，说明前面有空位，则对位置进行调整
+								if(blanks > 0){
+									this.gameArray[j-blanks].splice(i,1,this.gameArray[j][i]);
+									this.gameArray[j].splice(i,1,null);
+								}
+							}
+						}
+					}					
+					if(way == "down"){								//往上移动
+						for(let i=0;i<4;i++){
+							for(let j=2;j>=0;j--){
+								//从第二列开始判断前面空位有几个
+								if(this.gameArray[j][i] == null) continue;
+								let blanks = 0;
+								for(let k=3;k>j;k--){
+									if(this.gameArray[k][i] == null) blanks++;
+								}
+								//如果blanks大于0，说明前面有空位，则对位置进行调整
+								if(blanks > 0){
+									this.gameArray[j+blanks].splice(i,1,this.gameArray[j][i]);
+									this.gameArray[j].splice(i,1,null);
+								}
+							}
+						}
+					}						
+				},
+				merge(way){													//合并数据
+					if(way == "left"){								//往左合并
+						for(let i=0;i<4;i++){
+							for(let j=0;j<3;j++){
+								//从第1列开始判断是否和后面的列的值相同
+								//如果列不为空，且和后面的列相同，则把当前列的值*2，后面的列清空
+								if(this.gameArray[i][j] && this.gameArray[i][j] == this.gameArray[i][j+1]){
+										this.gameArray[i].splice(j,1,this.gameArray[i][j]*2);
+										this.gameArray[i].splice(j+1,1,null);
+								}
+							}
+						}
+					}	
+					if(way == "right"){								//往右合并
+						for(let i=0;i<4;i++){
+							for(let j=3;j>0;j--){
+								if(this.gameArray[i][j] && this.gameArray[i][j] == this.gameArray[i][j-1]){
+										this.gameArray[i].splice(j,1,this.gameArray[i][j]*2);
+										this.gameArray[i].splice(j-1,1,null);
+								}
+							}
+						}
+					}						
+					if(way == "up"){								//往上合并
+						for(let i=0;i<4;i++){
+							for(let j=0;j<3;j++){
+								if(this.gameArray[j][i] && this.gameArray[j][i] == this.gameArray[j+1][i]){
+										this.gameArray[j].splice(i,1,this.gameArray[j][i]*2);
+										this.gameArray[j+1].splice(i,1,null);
+								}
+							}
+						}
+					}						
+					if(way == "down"){								//往上合并
+						for(let i=0;i<4;i++){
+							for(let j=3;j>0;j--){
+								if(this.gameArray[j][i] && this.gameArray[j][i] == this.gameArray[j-1][i]){
+										this.gameArray[j].splice(i,1,this.gameArray[j][i]*2);
+										this.gameArray[j-1].splice(i,1,null);
+								}
+							}
+						}
+					}						
+				},				
+				boxFull(){														//判断盒子是否满了
+					for(let i=0;i<4;i++){
+						for(let j=0;j<4;j++){
+							//只要找到一个没有数字的格子，游戏就可以继续
+							if(this.gameArray[i][j] == null){
+								return false;
+							} 
+						}
+					}
+					return true;
+				},
+				notMove(){														//判断无法移动
+					//只要在数组中找不到相邻的两个相同的元素，游戏就结束了
+					//判断横向元素是否相等
+					for(let i=0;i<4;i++){
+						for(let j=0;j<3;j++){
+							if(this.gameArray[i][j] == this.gameArray[i][j+1]){
+								return false;
+							} 
+						}
+					}			
+					//判断纵向元素是否相等
+					for(let i=0;i<4;i++){
+						for(let j=0;j<3;j++){
+							if(this.gameArray[j][i] == this.gameArray[j+1][i]){
+								return false;
+							} 
+						}
+					}							
+					return true;					
+				}
+			}
+		})
+	</script>
+</html>

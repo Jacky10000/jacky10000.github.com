@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="animate.css"/>
+		<title>打字游戏</title>
+		<style type="text/css">
+			html,body{
+				margin: 0;
+				padding: 0;
+				height: 100%;
+			}
+			#typing{
+				height: 100%;
+				margin: 0px auto;
+				font-size: 20em;
+				font-weight: bold;
+				background-color: #353535;
+				color: lightseagreen;
+				text-shadow: 0px 0px 50px whitesmoke;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="typing"><div id="box"></div></div>
+	</body>
+
+	<script type="text/javascript">
+		function bigChar() {
+			var num = ~~(Math.random()*26)+65;
+			return String.fromCharCode(num);
+		}
+		
+		var typing = document.getElementById("typing");
+		var box    = document.getElementById("box");
+		box.innerText = bigChar();
+
+		document.onkeyup = function(e) {
+			if(65 <= e.which && e.which <= 90){
+				var tc = e.key.toUpperCase();
+				if(tc == typing.innerText){
+					box.innerText = bigChar();
+					box.className = "animated zoomIn";
+					setTimeout(function () {
+						box.className = "";
+					},1000)
+				}else{
+					box.className = "animated shake";
+					box.style.color = "red"
+					setTimeout(function () {
+						box.className = "";
+						box.style.color = "lightseagreen"
+					},1000)
+				}
+			}
+		}
+	</script>
+</html>
