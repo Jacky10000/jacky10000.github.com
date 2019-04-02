@@ -8,32 +8,6 @@
 		<h1 id="name">{{name}}</h1>
 	</body>
 	<script type="text/javascript">
-//		var a = {name:'yy'};
-//		var b = {age:'bb'};
-//		Object.defineProperty(a,'name',b)
-//		console.log(Object.defineProperty(a,'age',{
-//			value:'11'
-//		}))
-//		Object.defineProperty()
-		
-	</script>
-	<!--<script type="text/javascript">
-		var Book = {}
-		var name = '';
-		Object.defineProperty(Book, 'name', {
-		  set: function (value) {
-		    name = value;
-		    console.log('你取了一个书名叫做' + value);
-		  },
-		  get: function () {
-		    return '《' + name + '》'
-		  }
-		})
-		 
-		Book.name = 'vue权威指南';  // 你取了一个书名叫做vue权威指南
-		console.log(Book.name);
-	</script>-->
-	<script type="text/javascript">
 		function defineReactive(data, key, val) {
 		    observe(val); // 递归遍历所有子属性
 		    var dep = new Dep(); 

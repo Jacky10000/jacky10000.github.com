@@ -11,6 +11,9 @@
 4、
 
 
+# JS
+1、JSON字符串是什么？
+json是一种轻量级的数据交换格式,易于人阅读和编写，同时也易于机器解析和生成，并有效地提升网络传输效率  
 
 
 
@@ -21,7 +24,10 @@
 react的生命周期分为三大块，组件运行前，运行时，卸载；常用的主要函数有componentWillMount(在渲染前调用),componentDidMount(在第一次渲染后调用),componentWillReceiveProps(在组件接收到一个新的 prop (更新后)时被调用。这个方法在初始化render时不会被调用),componentWillUpdate(在组件接收到新的props或者state但还没有render时被调用。在初始化时不会被调用),componentDidUpdate (在组件完成更新后立即调用,在初始化时不会被调用),componentWillUnmount(在组件从 DOM 中移除之前立刻被调用)。  
 2、vue如何实现数据双向绑定
 答：简单回答：采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。
+3、react和vue的区别
+vue实现了数据的双向绑定,react数据流动是单向的；组件写法不一样, React推荐的做法是 JSX + inline style, 也就是把HTML和CSS全都写进JavaScript了,即'all in js'; Vue推荐的做法是webpack+vue-loader的单文件组件格式,即html,css,jd写在同一个文件;
 
+·
 
 
 # 工作项目中遇到的一些坑需求
