@@ -17,8 +17,7 @@
 		        get: function() {
 		        	if (Dep.target) {
 		        		console.log('触发get')
-		                dep.addSub(Dep.target); // 在这里添加一个订阅者
-		                console.log(dep.subs)
+		                dep.addSub(Dep.target); // 在这里添加一个订阅者		                
 		            }
 		            return val;
 		        },
@@ -69,14 +68,12 @@
 		    update: function() {
 		        this.run();
 		    },
-		    run: function() {
-		    	console.log('执行run'+new Date())
+		    run: function() {		    	
 		        var value = this.vm.data[this.exp];
 		        var oldVal = this.value;
 		        if (value !== oldVal) {
 		            this.value = value;
 		            this.cb.call(this.vm, value, oldVal);    //改变this
-		            console.log(this.vm)
 		        }
 		    },
 		    get: function() {
@@ -107,6 +104,7 @@
 	    var selfVue = new SelfVue({
 	        name: 'hello world'
 	    }, ele, 'name');
+	    console.log(selfVue)
 	    window.setTimeout(function () {
 	        selfVue.data.name = 'canfoo';
 	    }, 2000);	    

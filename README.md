@@ -13,7 +13,40 @@
 
 # JS
 1、JSON字符串是什么？
-json是一种轻量级的数据交换格式,易于人阅读和编写，同时也易于机器解析和生成，并有效地提升网络传输效率  
+json是一种轻量级的数据交换格式,易于人阅读和编写，同时也易于机器解析和生成，并有效地提升网络传输效率   
+2、JS模块化的原理及实现过程
+ES6 
+import和export，export用于规定模块的对外接口，import命令用于输入其他模块提供的功能，
+ES6之前有相关的js模块实现这样的功能如(requirejs,CommonJS)
+
+3、单页面应用中路由跳转的原理
+第一种：Hash路由  
+url 上的 hash 以 # 开头，原本是为了作为锚点，方便用户在文章导航到相应的位置。因为 hash 值的改变不会引起页面的刷新，聪明的程序员就想到用 hash 值来做单页面应用的路由，并且当 url 的 hash 发生变化的时候，可以触发相应 hashchange 回调函数；
+class Router {
+  constructor() {
+    this.routes = {};
+    this.currentUrl = '';
+  }
+  route(path, callback) {
+    this.routes[path] = callback || function() {};
+  }
+  updateView() {
+    this.currentUrl = location.hash.slice(1) || '/';
+    this.routes[this.currentUrl] && this.routes[this.currentUrl]();
+  }
+  init() {
+    window.addEventListener('load', this.updateView.bind(this), false);
+    window.addEventListener('hashchange', this.updateView.bind(this), false);
+  }
+}
+第二种：History 路由  
+
+一、routes 用来存放不同路由对应的回调函数
+二、init 用来初始化路由，在 load 事件发生后刷新页面，并且绑定 hashchange 事件，当 hash 值改变时触发对应回调函数
+
+4、简述vue-router进入新路由的基本过程
+
+
 
 
 
@@ -26,7 +59,7 @@ react的生命周期分为三大块，组件运行前，运行时，卸载；常
 答：简单回答：采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。
 3、react和vue的区别
 vue实现了数据的双向绑定,react数据流动是单向的；组件写法不一样, React推荐的做法是 JSX + inline style, 也就是把HTML和CSS全都写进JavaScript了,即'all in js'; Vue推荐的做法是webpack+vue-loader的单文件组件格式,即html,css,jd写在同一个文件;
-
+4、
 ·
 
 
