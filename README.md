@@ -226,7 +226,27 @@ for(var i in json){
       iMax = json[i];
       iIndex = i;}
 } 
-console.log('出现次数最多的是:'+iIndex+'出现'+iMax+'次');
+console.log('出现次数最多的是:'+iIndex+'出现'+iMax+'次');  
+
+12、async await
+async是基于promise实现的异步加载的一种办法，async返回的是一个promise对象，await后面加的大多数也是Promise对象，如果加的是正常表达式就会立刻执行，加的是Promise对象则会等待promise解决才会进行下一步；
+function timeout(ms) {
+  return new Promise((resolve,reject) => {
+    setTimeout(_ => {
+    	reject('错误了')
+    }, ms);
+  });
+}		
+async function asyncPrint(value, ms) {
+	try {
+		await timeout(ms);
+		console.log(value);				
+	}catch(err){
+		console.log(err)
+	}
+}
+
+asyncPrint('hello world', 1000);   //不用try catch Promise状态为reject会报错
 
 
 
@@ -277,7 +297,8 @@ vue实现了数据的双向绑定,react数据流动是单向的；组件写法�
 5、原型与原型链               https://hexianzhi.github.io/2017/04/27/JavaScript%E5%8E%9F%E5%9E%8B/  
 构造函数实例的_proto_指向构造函数的prototype属性，构造函数的prototype里面的_proto_指向Object.prototype,因为prototype本质上是一个对象，所以是Object的实例；构造函数的也有个_proto_，指向Function的prototype,Function的_proto_指向Object的prototype，因为函数对象也是对象；Object.__proto__ === Function.prototype
 JavaScript 中的对象，有一个特殊的 [[prototype]] 属性, 其实就是对于其他对象的引用（委托）。当我们在获取一个对象的属性时，如果这个对象上没有这个属性，那么 JS 会沿着对象的 [[prototype]]链 一层一层地去找，最后如果没找到就返回 undefined;
-这条一层一层的查找属性的方式，就叫做原型链。
+这条一层一层的查找属性的方式，就叫做原型链。  
+二、原型对象即prototype里面有一个属性constructor也是一个指针，指向关联的构造函数，function Person() {}；  Person === Person.prototype.constructor; // true;对象实例是构造函数构造而来,_proto_指向构造函数的prototype，所以const person = new Person();person.constructor === Person  //true    事实上，对象实例本身并没有 constructor 属性，对象实例的 constructor 属性来自于引用了原型对象的 constructor 属性;Object.prototype._proto_ ==null,Object._proto_ 指向Function.prototype
 
 
 
