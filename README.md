@@ -274,8 +274,12 @@ vue实现了数据的双向绑定,react数据流动是单向的；组件写法�
 14.缓存ajax；  
 
 
-5、原型与原型链  
-实例的_proto_指向构造函数的prototype属性https://hexianzhi.github.io/2017/04/27/JavaScript%E5%8E%9F%E5%9E%8B/
+5、原型与原型链               https://hexianzhi.github.io/2017/04/27/JavaScript%E5%8E%9F%E5%9E%8B/  
+构造函数实例的_proto_指向构造函数的prototype属性，构造函数的prototype里面的_proto_指向Object.prototype,因为prototype本质上是一个对象，所以是Object的实例；构造函数的也有个_proto_，指向Function的prototype,Function的_proto_指向Object的prototype，因为函数对象也是对象；Object.__proto__ === Function.prototype
+JavaScript 中的对象，有一个特殊的 [[prototype]] 属性, 其实就是对于其他对象的引用（委托）。当我们在获取一个对象的属性时，如果这个对象上没有这个属性，那么 JS 会沿着对象的 [[prototype]]链 一层一层地去找，最后如果没找到就返回 undefined;
+这条一层一层的查找属性的方式，就叫做原型链。
+
+
 
 
 
