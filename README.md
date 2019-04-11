@@ -246,7 +246,18 @@ async function asyncPrint(value, ms) {
 	}
 }
 
-asyncPrint('hello world', 1000);   //不用try catch Promise状态为reject会报错
+asyncPrint('hello world', 1000);   //不用try catch Promise状态为reject会报错  
+
+13、https://segmentfault.com/q/1010000002810093
+var a = 1;
+(function a(){
+	a = 2
+	console.log(a)
+})()
+f a(){
+	a = 2
+	console.log(a)
+}
 
 
 
