@@ -248,6 +248,8 @@ async function asyncPrint(value, ms) {
 
 asyncPrint('hello world', 1000);   //不用try catch Promise状态为reject会报错
 
+# VUE
+1、路由懒加载  
 
 
 # 原理题
