@@ -261,7 +261,23 @@ f a(){
 
 # VUE
 1、路由懒加载  
+一、 vue异步组件技术 ==== 异步加载
+{
+  path: '/home',
+  name: 'home',
+  component: resolve => require(['@/components/home'],resolve)
+}
+二、路由懒加载(使用import)
+const Index = () => import('@/components/index')
+三、webpack提供的require.ensure() 
+{
+  path: '/home',
+  name: 'home',
+  component: r => require.ensure([], () => r(require('@/components/home')), 'demo')
+},
 
+2、vue自定义指令  
+ Vue.js 用 directive ( id,definition) 方法注册一个全局的自定义指令，自定义的指令接受两个参数： 指令 ID 与定义对象
 
 # 原理题
 1、react生命周期与vue的生命周期
