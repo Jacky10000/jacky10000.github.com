@@ -92,7 +92,9 @@ JS引擎：获取网页的JS部分用来解析和执行以实现网页的动态�
 答:第一种：用伪元素after或者before，左边的固定内容写在content里面；第二种：将这个大长方形用图片当背景，固定的内容以背景展示，加个padding-left;  
 3、css实现一行文字居中，多行文字居左  
 答：div里面套一个行内元素，div设置文字居中，行内元素设置文字居左，文字不超过一行的时候行内元素宽度没有达到div的宽度，所以看起来是居中，文字超过1行时，行内元素的宽度已经跟div一样宽，展示出文字居左的效果；  
-4、
+4、Link与import的区别  
+Link 属于 html 标签，而@import 是 CSS 中提供的
+在页面加载的时候，link 会同时被加载，而@import 引用的 CSS 会在页面加载完成后才会加载引用的 CSS，Link 引入样式的权重大于@import 的引用
 
 
 # JS
@@ -212,8 +214,8 @@ parentNode：获取父节点
 11、判断一个字符串里出现次数最多的字母
 var str = 'asdfssaaasasasasaa';
 var json = {};
-for(var?i = 0; i < str.length; i++) {
- if(!json[str.charAt(i)]){
+for(var i = 0; i < str.length; i++) {
+ if(!json[str.charAt(i)]){                 charAt() 方法可返回指定位置的字符
    json[str.charAt(i)] = 1;
 }else{
   json[str.charAt(i)]++;
