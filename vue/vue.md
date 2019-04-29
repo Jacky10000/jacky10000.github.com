@@ -33,3 +33,12 @@
 
 # table表格里展示的数据过多，请求数据回来到展示可能需要4-5s，优化
 	最简单的办法是做分页+滚动加载，但是项目中的接口很多是通用的，改接口并不现实，所以前端进行模拟分页并实现滚动加载，有一个难点是这是element-ui里的表格组件，有一个全选和按钮，这里会出现bug，点击全选只会勾选上当前展示在表格里的数据，不会把未展示的数据也给发送给后台，需要对element-ui里的全选方法进行稍微的修改。点击全选时判断当前数据是否全部展示出来，并调用element-ui里面的全选方法：this.$refs.billDetailTable.toggleRowSelection(item,false);
+
+
+
+
+
+###vue项目中用过的一些插件
+
+1、vuedraggable
+vuedraggable是一个拖拽插件，用于div内拖拽或者div之间拖拽
