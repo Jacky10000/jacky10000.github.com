@@ -16,7 +16,7 @@
 		        configurable: true,
 		        get: function() {
 		        	if (Dep.target) {
-		        		console.log('触发get')
+//		        		console.log('触发get')
 		                dep.addSub(Dep.target); // 在这里添加一个订阅者		                
 		            }
 		            return val;
@@ -26,7 +26,7 @@
 		                return;
 		            }
 		            val = newVal;
-		            console.log('属性' + key + '已经被监听了，现在值为：“' + newVal.toString() + '”');
+//		            console.log('属性' + key + '已经被监听了，现在值为：“' + newVal.toString() + '”');
 		            dep.notify();
 		        }
 		    });
@@ -77,6 +77,8 @@
 		        }
 		    },
 		    get: function() {
+		    	console.log(this)
+		    	console.log(this.vm)
 		        Dep.target = this;  // 缓存自己
 		        var value = this.vm.data[this.exp]  // 强制执行监听器里的get函数
 		        Dep.target = null;  // 释放自己
@@ -104,7 +106,7 @@
 	    var selfVue = new SelfVue({
 	        name: 'hello world'
 	    }, ele, 'name');
-	    console.log(selfVue)
+//	    console.log(selfVue)
 	    window.setTimeout(function () {
 	        selfVue.data.name = 'canfoo';
 	    }, 2000);	    
